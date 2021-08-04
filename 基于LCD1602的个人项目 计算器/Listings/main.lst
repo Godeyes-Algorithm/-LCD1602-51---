@@ -1,0 +1,164 @@
+C51 COMPILER V9.55   MAIN                                                                  08/04/2021 21:15:17 PAGE 1   
+
+
+C51 COMPILER V9.55, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main
+                    -.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          #include "Delay.h"
+   3          #include "LCD1602.h"
+   4          #include "Matrix.h"
+   5          unsigned int KeyNum;
+   6          unsigned int _1602Num;
+   7          unsigned int _1602wei;
+   8          unsigned int Date;
+   9          unsigned int Yunsuan1=0;
+  10          unsigned int Yunsuan2=1;
+  11          void main(){
+  12   1        LCD_Init();
+  13   1        
+  14   1        while (1){
+  15   2          //KeyNum的获取及译码
+  16   2          
+  17   2          KeyNum = Matrix();
+  18   2          if (KeyNum){
+  19   3            if(KeyNum==1){
+  20   4              _1602Num= 1;
+  21   4              _1602wei++;
+  22   4              Date*=10;
+  23   4              Date+=_1602Num%10;
+  24   4            }
+  25   3            if(KeyNum==2){
+  26   4              _1602Num= 2;
+  27   4              _1602wei++;
+  28   4              Date*=10;
+  29   4              Date+=_1602Num%10;
+  30   4            }
+  31   3            if(KeyNum==3){
+  32   4              _1602Num= 3;
+  33   4              _1602wei++;
+  34   4              Date*=10;
+  35   4              Date+=_1602Num%10;
+  36   4            }
+  37   3            if(KeyNum==5){
+  38   4              _1602Num= 4;
+  39   4              _1602wei++;
+  40   4              Date*=10;
+  41   4              Date+=_1602Num%10;
+  42   4            }
+  43   3            if(KeyNum==6){
+  44   4              _1602Num=5;
+  45   4              _1602wei++;
+  46   4              Date*=10;
+  47   4              Date+=_1602Num%10;
+  48   4            }
+  49   3            if(KeyNum==7){
+  50   4              _1602Num=6;
+  51   4              _1602wei++;
+  52   4              Date*=10;
+  53   4              Date+=_1602Num%10;
+  54   4            }
+C51 COMPILER V9.55   MAIN                                                                  08/04/2021 21:15:17 PAGE 2   
+
+  55   3            if(KeyNum==9){
+  56   4              _1602Num = 7;
+  57   4              _1602wei++;
+  58   4              Date*=10;
+  59   4              Date+=_1602Num%10;
+  60   4            }
+  61   3            if(KeyNum==10){
+  62   4              _1602Num = 8;
+  63   4              _1602wei++;
+  64   4              Date*=10;
+  65   4              Date+=_1602Num%10;
+  66   4            }
+  67   3            if(KeyNum==11){
+  68   4              _1602Num = 9;
+  69   4              _1602wei++;
+  70   4              Date*=10;
+  71   4              Date+=_1602Num%10;
+  72   4            }
+  73   3            if(KeyNum==14){
+  74   4              _1602Num = 0;
+  75   4              _1602wei++;
+  76   4              Date*=10;
+  77   4              Date+=_1602Num%10;
+  78   4            }
+  79   3            if(KeyNum==4){
+  80   4              LCD_ShowChar(1,1,'+');
+  81   4              LCD_ShowNum(1,3,Yunsuan2,6);
+  82   4              Yunsuan1=Date;
+  83   4              Yunsuan2=Yunsuan1+Yunsuan2;
+  84   4              Delay(20);
+  85   4              Date=0;
+  86   4              _1602wei=0;
+  87   4              LCD_ShowString(2,1,"                ");//提醒：这句代码不能放在这里
+  88   4            }
+  89   3            if(KeyNum==8){
+  90   4              LCD_ShowChar(1,1,'-');
+  91   4              LCD_ShowNum(1,3,Yunsuan2,6);
+  92   4              Yunsuan1=Date;
+  93   4              Yunsuan2=Yunsuan1-Yunsuan2;
+  94   4              Date=0;
+  95   4              _1602wei=0;
+  96   4              LCD_ShowString(2,1,"                ");
+  97   4            }
+  98   3            if(KeyNum==12){
+  99   4              LCD_ShowChar(1,1,'*');
+ 100   4              Yunsuan1=Date;
+ 101   4              Yunsuan2*=Yunsuan1;
+ 102   4              LCD_ShowNum(1,3,Yunsuan2,6);
+ 103   4              Date=0;
+ 104   4              _1602wei=0;
+ 105   4              LCD_ShowString(2,1,"                ");
+ 106   4            }
+ 107   3            if(KeyNum==16){
+ 108   4              LCD_ShowChar(1,1,'/');
+ 109   4              Yunsuan1=Date;
+ 110   4              Yunsuan2=Yunsuan2/Yunsuan1;
+ 111   4              LCD_ShowNum(1,3,Yunsuan2,6);
+ 112   4              Date=0;
+ 113   4              _1602wei=0;
+ 114   4              LCD_ShowString(2,1,"                ");
+ 115   4            }
+ 116   3            if(KeyNum==15){
+C51 COMPILER V9.55   MAIN                                                                  08/04/2021 21:15:17 PAGE 3   
+
+ 117   4              LCD_ShowChar(1,1,'=');
+ 118   4              Date=0;
+ 119   4              LCD_ShowNum(2,1,Yunsuan2,6);
+ 120   4            }
+ 121   3            if(Date==8007){
+ 122   4              LCD_ShowString(1,1,"Y");
+ 123   4            
+ 124   4            }
+ 125   3            if(Yunsuan2==2333){
+ 126   4              LCD_ShowString(1,1,"S");
+ 127   4            }
+ 128   3            LCD_ShowNum(2,_1602wei,_1602Num,1 );
+ 129   3          }
+ 130   2          
+ 131   2          
+ 132   2        }
+ 133   1      
+ 134   1        
+ 135   1      }
+ 136          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    943    ----
+   CONSTANT SIZE    =     21    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     12    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
